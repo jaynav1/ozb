@@ -1,13 +1,14 @@
 import { Appbar, ActivityIndicator } from 'react-native-paper';
 import { View, FlatList, StyleSheet, RefreshControl } from 'react-native';
-import { useScrollToTop } from '@react-navigation/native';
+//import { useScrollToTop } from '@react-navigation/native';
 import { getCategoryFeed, getFrontPageFeed } from '../../utilities/siteRssFeedInterface';
 import DealComponent from '../../components/DealComponent';
+import CategoryChipView from '../../components/CategoryChipView';
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useTheme } from 'react-native-paper';
 
-import sampleDeal from '../../sampleDeal.json';
+//import sampleDeal from '../../sampleDeal.json';
 
 function DealsAppbar() {
 	const { colors } = useTheme();
@@ -21,46 +22,51 @@ function DealsAppbar() {
 export default function DealsTab({ navigation }) {
 	const ref = useRef(null);
 	const [options, setOptions] = useState({
-		category: 'computing',
+		sort: 'hot',
+		category: 'Computing',
 		page: 0
 	});
 	const [deals, setDeals] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [refreshing, setRefreshing] = useState(false);
 	useEffect(() => {
-		if (options.page < 11) {
-			getFrontPageFeed(options)
-			.then(data => {
-				setDeals(deals.concat(data));
-				setLoading(false);
-			}),
-			() => {
-				setLoading(false);
+		if (options.category !== 'all') {	
+			getCategoryFeed(options)
+				.then(data => {
+					setDeals(data);
+					setLoading(false);
+				})
+		} else {
+			if (options.page < 11) {
+				setLoading(true);
+				getFrontPageFeed(options)
+				.then(data => {
+					setDeals(deals.concat(data));
+					setLoading(false);
+				}),
+				() => {
+					setLoading(false);
+				}
 			}
 		}
 	}
 	, [options]);
 
-	useEffect(() => {
-		const scrolltoTop = navigation.addListener('tabPress', (e) => {
-			useScrollToTop(ref);
-		});
-	}
-	, [ref]);
-
 	const onRefresh = useCallback(() => {
-		setLoading(true);
+		setRefreshing(true);
 		setDeals([]);
 		setOptions({
 			...options,
 			page: 0
 		});
-	}, []);
+		setRefreshing(false);
+	}, [options]);
 
 	return (
 		<View style={styles.container}>
 			<DealsAppbar/>
-			<DealsList ref={ref} deals={deals} refreshing={refreshing} onRefresh={onRefresh} loading={loading} options={options} setOptions={setOptions}/>
+			<CategoryChipView options={options} setOptions={setOptions}/>
+			<DealsList deals={deals} refreshing={refreshing} onRefresh={onRefresh} loading={loading} options={options} setOptions={setOptions}/>
 		</View>
 	);
 }

@@ -2,7 +2,6 @@ import { Avatar, Button, Card, Title, Paragraph, Text } from 'react-native-paper
 import { StyleSheet, Image, View } from 'react-native';
 import RenderHtml from 'react-native-render-html';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ZStack } from 'native-base';
 
 export default function DealCard(props) {
     return (
@@ -18,7 +17,7 @@ export default function DealCard(props) {
             />
             <Card.Content>
                 {/* <Paragraph style={styles.cardContent}>{props.item.description}</Paragraph> */}
-                <View style={styles.htmlView}>
+                {/* <View style={styles.htmlView}>
                 <LinearGradient
                     // Background Linear Gradient
                     colors={['transparent', 'rgba(255,255,255,0.9)']}
@@ -32,7 +31,8 @@ export default function DealCard(props) {
                     source={{ html: props.item.description }}
                     enableExperimentalGhostLinesPrevention={true}
                 />
-                </View>
+                </View> */}
+                {/*lol both look bad*/}
             </Card.Content>
         </Card>
     )

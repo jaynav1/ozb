@@ -43,8 +43,8 @@ function cleanFeed(feed: Array<Object>) {
 }
 
 export async function getCategoryFeed(feedOptions: object) {
-    if (Object.values(config.CATGORIES).includes(feedOptions.category)) {
-        var url = `${config.CATEGORY_URL}${feedOptions.category}/${config.SUFFIX}`;
+    if (Object.keys(config.CATEGORIES).includes(feedOptions.category)) {
+        var url = `${config.CATEGORY_URL}${config.CATEGORIES[feedOptions.category]}/${config.SUFFIX}`;
         try {
             const response = await fetch(url);
             const data = await response.text();

@@ -5,7 +5,7 @@
     "ALL_POPULAR_URL": "https://www.ozbargain.com.au/deals/popular/",
     "EXPIRING_SOON_URL": "https://www.ozbargain.com.au/deals/expiring/",
     "STARTING_SOON_URL": "https://www.ozbargain.com.au/deals/starting/",
-    "CATGORIES": {
+    "CATEGORIES": {
         "Alcohol": "alcohol",
         "Automotive": "automotive",
         "Books & Magazines": "books-magazines",
