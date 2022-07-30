@@ -1,0 +1,36 @@
+{
+    "BASE_URL": "https://www.ozbargain.com.au/",
+    "CATEGORY_URL": "https://www.ozbargain.com.au/cat/",
+    "NEW_SUFFIX": "deals/",
+    "ALL_POPULAR_URL": "https://www.ozbargain.com.au/deals/popular/",
+    "EXPIRING_SOON_URL": "https://www.ozbargain.com.au/deals/expiring/",
+    "STARTING_SOON_URL": "https://www.ozbargain.com.au/deals/starting/",
+    "CATGORIES": {
+        "Alcohol": "alcohol",
+        "Automotive": "automotive",
+        "Books & Magazines": "books-magazines",
+        "Computing": "computing",
+        "Dining & Takeaway": "dining-takeaway",
+        "Education": "education",
+        "Electrical & Electronics": "electrical-electronics",
+        "Entertainment": "entertainment",
+        "Fashion & Apparel": "fashion-apparel",
+        "Financial": "financial",
+        "Gaming": "gaming",
+        "Health & Beauty": "health-beauty",
+        "Home & Garden": "home-garden",
+        "Internet": "internet",
+        "Mobile": "mobile",
+        "Pets": "pets",
+        "Sports & Outdoors": "sports-outdoors",
+        "Toys & Kids": "toys-kids",
+        "Travel": "travel",
+        "Other": "other"
+    },
+    "SUFFIX": "feed?",
+    "SEARCH_OPTIONS": {
+        "hide_expired": "noexpired=1",
+        "day_range": "days=",
+        "page": "page="
+    }
+}

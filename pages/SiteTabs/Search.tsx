@@ -3,6 +3,7 @@ import { Text, Button } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
 
 export default function DealsTab({ navigation }) {
+
 	return (
 		<View style={styles.container}>
 			<Text>Search Tab</Text>
