@@ -23,8 +23,9 @@ function cleanFeed(feed: Array<Object>) {
     const now = new Date();
     return feed.map(item => {
         const cleanItem = {
-            message: (item['ozb:title-msg'] ? item['ozb:title-msg'] : null),
+            message: (item['ozb:title-msg'] ? item['ozb:title-msg'] : 'none'),
             title: item['title'],
+            link: item['link'],
             description: item['description']['content'].split('</div>',2)[1],
             info: item['ozb:meta'],
             author: item['dc:creator'],

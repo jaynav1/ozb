@@ -2,21 +2,21 @@ import { Avatar, Button, Card, Title, Paragraph, Text } from 'react-native-paper
 import { StyleSheet, Image, TouchableOpacity, View } from 'react-native';
 import { useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
-import RenderHtml from 'react-native-render-html';
-import { LinearGradient } from 'expo-linear-gradient';
+import DealMessageChipView from './DealMessageChipView';
 
 export default function DealCard(props) {
     const [WebBrowserData, setWebBrowserData] = useState(null);
 
     const _openDealWeb = async (url) => {
-        let result = await WebBrowser.openBrowserAsync(url);
+        let result = await WebBrowser.openBrowserAsync(url, {createTask: false});
         setWebBrowserData(result);
     };
 
     return (
-        <Card style={styles.card}>
+        <Card style={styles.card} onPress={() =>{_openDealWeb(props.item.link)}}>
+            <DealMessageChipView message={props.item.message}/>
             <Card.Title 
-                title={props.item.title} 
+                title={`${props.item.title}`} 
                 titleStyle={styles.cardTitle} 
                 titleNumberOfLines={3}
                 subtitle={`+${props.item.info['@_votes-pos']}/${props.item.info['@_votes-neg']}- | ${props.item.date}`}
