@@ -1,9 +1,18 @@
 import { Avatar, Button, Card, Title, Paragraph, Text } from 'react-native-paper';
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
+import * as WebBrowser from 'expo-web-browser';
 import RenderHtml from 'react-native-render-html';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function DealCard(props) {
+    const [WebBrowserData, setWebBrowserData] = useState(null);
+
+    const _openDealWeb = async (url) => {
+        let result = await WebBrowser.openBrowserAsync(url);
+        setWebBrowserData(result);
+    };
+
     return (
         <Card style={styles.card}>
             <Card.Title 
@@ -12,7 +21,7 @@ export default function DealCard(props) {
                 titleNumberOfLines={3}
                 subtitle={props.item.date}
                 subtitleStyle={styles.cardSubtitle}
-                right={props.item.info['@_image'] ? () => <Image style={styles.cardThumb} source={{ uri: props.item.info['@_image'] }} /> : null}
+                right={props.item.info['@_image'] ? () => <TouchableOpacity onPress={() =>{_openDealWeb(props.item.info['@_link'])}}><Image style={styles.cardThumb} source={{ uri: props.item.info['@_image'] }} /></TouchableOpacity> : null}
                 rightStyle={{ marginRight: 10 }}
             />
             <Card.Content>
