@@ -1,5 +1,6 @@
 import config from '../config.json';
 import { XMLParser } from 'fast-xml-parser';
+import { formatDistance } from 'date-fns';
 
 
 // const parser: Parser<CustomItem> = new Parser({
@@ -19,6 +20,7 @@ const parser = new XMLParser(options);
 
 
 function cleanFeed(feed: Array<Object>) {
+    const now = new Date();
     return feed.map(item => {
         const cleanItem = {
             message: (item['ozb:title-msg'] ? item['ozb:title-msg'] : null),
@@ -26,7 +28,7 @@ function cleanFeed(feed: Array<Object>) {
             description: item['description']['content'].split('</div>',2)[1],
             info: item['ozb:meta'],
             author: item['dc:creator'],
-            date: item['pubDate'],
+            date: formatDistance(Date.parse(item['pubDate']),now, {addSuffix: true}),
         }
         return cleanItem;
     });

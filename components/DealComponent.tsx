@@ -19,7 +19,7 @@ export default function DealCard(props) {
                 title={props.item.title} 
                 titleStyle={styles.cardTitle} 
                 titleNumberOfLines={3}
-                subtitle={props.item.date}
+                subtitle={`+${props.item.info['@_votes-pos']}/${props.item.info['@_votes-neg']}- | ${props.item.date}`}
                 subtitleStyle={styles.cardSubtitle}
                 right={props.item.info['@_image'] ? () => <TouchableOpacity onPress={() =>{_openDealWeb(props.item.info['@_link'])}}><Image style={styles.cardThumb} source={{ uri: props.item.info['@_image'] }} /></TouchableOpacity> : null}
                 rightStyle={{ marginRight: 10 }}
