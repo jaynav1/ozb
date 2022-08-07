@@ -5,15 +5,15 @@ import { useState, useEffect } from 'react'
 export default function DealMessageChipView({ message }) {
     const [chips, setChips] = useState([]);
     useEffect(() => {
-        if (typeof message === 'object') {
-            setChips([<Chip mode='outlined' key={0}>{message['#text'].toUpperCase()}</Chip>])
-        } else if (Array.isArray(message)) {
+        if (Array.isArray(message)) {
             message.forEach((item, index) => {
                 if (typeof item === 'object') {
                     setChips([...chips, <Chip mode='outlined' key={index}>{item['#text'].toUpperCase()}</Chip>])
                 }
             })
-        }
+        } else if (typeof message === 'object') {
+            setChips([<Chip mode='outlined' key={0}>{message['#text'].toUpperCase()}</Chip>])
+        } 
     }
     , [])
 

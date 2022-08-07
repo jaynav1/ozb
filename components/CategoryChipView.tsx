@@ -5,9 +5,17 @@ import { useState } from 'react';
 import config from '../config.json'
 
 export default function CategoryChipView({ options, setOptions }) {
+    const toggleExpired = () => {
+        setOptions({
+            ...options,
+            hideExpired: !options.hideExpired
+        })
+    }
+
     return (
         <View style={styles.container}>
             <CategoryMenu options={options} setOptions={setOptions} />
+            <Chip mode='outlined' selected={options.hideExpired} onPress={toggleExpired}>Hide expired</Chip>
         </View>
     );
 }
@@ -37,6 +45,6 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        margin: 5,
+        margin: 10,
     },
 });

@@ -1,10 +1,10 @@
-import { Avatar, Button, Card, Title, Paragraph, Text } from 'react-native-paper';
+import { Avatar, Button, Card, Paragraph, Text } from 'react-native-paper';
 import { StyleSheet, Image, TouchableOpacity, View } from 'react-native';
 import { useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import DealMessageChipView from './DealMessageChipView';
 
-export default function DealCard(props) {
+export default function DealCard({ item }) {
     const [WebBrowserData, setWebBrowserData] = useState(null);
 
     const _openDealWeb = async (url) => {
@@ -13,15 +13,15 @@ export default function DealCard(props) {
     };
 
     return (
-        <Card style={styles.card} onPress={() =>{_openDealWeb(props.item.link)}}>
-            <DealMessageChipView message={props.item.message}/>
+        <Card style={styles.card} onPress={() =>{_openDealWeb(item.link)}}>
+            <DealMessageChipView message={item.message}/>
             <Card.Title 
-                title={`${props.item.title}`} 
+                title={`${item.title}`} 
                 titleStyle={styles.cardTitle} 
                 titleNumberOfLines={3}
-                subtitle={`+${props.item.info['@_votes-pos']}/${props.item.info['@_votes-neg']}- | ${props.item.date}`}
+                subtitle={`+${item.info['@_votes-pos']}/${item.info['@_votes-neg']}- | ${item.expiryDate}`}
                 subtitleStyle={styles.cardSubtitle}
-                right={props.item.info['@_image'] ? () => <TouchableOpacity onPress={() =>{_openDealWeb(props.item.info['@_link'])}}><Image style={styles.cardThumb} source={{ uri: props.item.info['@_image'] }} /></TouchableOpacity> : null}
+                right={item.info['@_image'] ? () => <TouchableOpacity onPress={() =>{_openDealWeb(item.info['@_link'])}}><Image style={styles.cardThumb} source={{ uri: item.info['@_image'] }} /></TouchableOpacity> : null}
                 rightStyle={{ marginRight: 10 }}
             />
             <Card.Content>

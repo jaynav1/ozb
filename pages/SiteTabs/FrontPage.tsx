@@ -1,29 +1,27 @@
 import { Appbar, ActivityIndicator } from 'react-native-paper';
 import { View, FlatList, StyleSheet, RefreshControl } from 'react-native';
 //import { useScrollToTop } from '@react-navigation/native';
-import { getCategoryFeed } from '../../utilities/siteRssFeedInterface';
+import { getFrontPageFeed } from '../../utilities/siteRssFeedInterface';
 import DealComponent from '../../components/DealComponent';
-import CategoryChipView from '../../components/CategoryChipView';
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useTheme } from 'react-native-paper';
 
 //import sampleDeal from '../../sampleDeal.json';
 
-function DealsAppbar() {
+function FPAppbar() {
 	const { colors } = useTheme();
 	return ( 
 		<Appbar.Header style={{ ...styles.appbar, backgroundColor: colors.surface}}>
-			<Appbar.Content title="Deals"/>
+			<Appbar.Content title="Front Page"/>
 		</Appbar.Header>
 	)
 }
 
-export default function DealsTab({ navigation }) {
+export default function FPTab({ navigation }) {
 	const ref = useRef(null);
 	const [options, setOptions] = useState({
 		sort: 'hot',
-		category: 'Computing',
 		hideExpired: false,
 		page: 0
 	});
@@ -31,12 +29,16 @@ export default function DealsTab({ navigation }) {
 	const [loading, setLoading] = useState(true);
 	const [refreshing, setRefreshing] = useState(false);
 	useEffect(() => {
-		if (options.category !== 'all') {	
-			getCategoryFeed(options)
-				.then(data => {
-					setDeals(data);
-					setLoading(false);
-				})
+		if (options.page < 11) {
+			setLoading(true);
+			getFrontPageFeed(options)
+			.then(data => {
+				setDeals(deals.concat(data));
+				setLoading(false);
+			}),
+			() => {
+				setLoading(false);
+			}
 		}
 	}
 	, [options]);
@@ -53,8 +55,7 @@ export default function DealsTab({ navigation }) {
 
 	return (
 		<View style={styles.container}>
-			<DealsAppbar/>
-			<CategoryChipView options={options} setOptions={setOptions}/>
+			<FPAppbar/>
 			<DealsList deals={deals} refreshing={refreshing} onRefresh={onRefresh} loading={loading} options={options} setOptions={setOptions}/>
 		</View>
 	);
@@ -82,6 +83,9 @@ function DealsList(props) {
 			keyExtractor={(item, index) => index.toString()}
 			ListFooterComponent={renderFooter}
 			maxToRenderPerBatch={5}
+			onEndReached={() => {
+				props.setOptions({...props.options, page: props.options.page + 1});
+			}}
 		/>
 	)
 }

@@ -29,8 +29,10 @@ function cleanFeed(feed: Array<Object>) {
             description: item['description']['content'].split('</div>',2)[1],
             info: item['ozb:meta'],
             author: item['dc:creator'],
-            date: formatDistance(Date.parse(item['pubDate']),now, {addSuffix: true}),
+            pubDate: formatDistance(Date.parse(item['pubDate']),now, {addSuffix: true}),
+            expiryDate: (item['ozb:meta']['@_expiry'] ? formatDistance(Date.parse(item['ozb:meta']['@_expiry']),now, {addSuffix: true}) : ''),
         }
+        console.log(cleanItem.message);
         return cleanItem;
     });
 
@@ -47,7 +49,7 @@ function cleanFeed(feed: Array<Object>) {
 
 export async function getCategoryFeed(feedOptions: object) {
     if (Object.keys(config.CATEGORIES).includes(feedOptions.category)) {
-        var url = `${config.CATEGORY_URL}${config.CATEGORIES[feedOptions.category]}/${config.SUFFIX}`;
+        var url = `${config.CATEGORY_URL}${config.CATEGORIES[feedOptions.category]}/${config.SUFFIX}${feedOptions.hideExpired ? config.SEARCH_OPTIONS.hide_expired : ''}`;
         try {
             const response = await fetch(url);
             const data = await response.text();
