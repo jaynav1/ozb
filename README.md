@@ -1,4 +1,4 @@
-# TypeScript Example
+# Ozbargain Mobile Client React Native
 
 <p>
   <!-- iOS -->
